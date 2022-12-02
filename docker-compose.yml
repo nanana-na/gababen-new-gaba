@@ -29,7 +29,7 @@ services:
       MYSQL_ROOT_PASSWORD: password
       TZ: "Asia/Tokyo"
     ports:
-      - "3304:3304"
+      - "3302:3302"
 # PC上にdb-volumeという名前でボリューム（データ領域）が作成される
 # コンテナを作り直したとしてもPC上に残るようにするために設定
 volumes:

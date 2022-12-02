@@ -19,7 +19,6 @@ COPY Gemfile /app/Gemfile
 COPY Gemfile.lock /app/Gemfile.lock
 
 # RubyGemsをアップデート
-
 RUN gem update --system ${RUBYGEMS_VERSION} && \
     bundle install
 
