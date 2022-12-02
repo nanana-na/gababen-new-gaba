@@ -71,3 +71,5 @@ group :test do
   gem "webdrivers"
 end
 gem 'devise'
+gem 'carrierwave', '~> 1.3', '>= 1.3.1'
+gem 'mini_magick'
