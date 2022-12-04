@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :profiles
+  resources :users
+  resources :talks
+  resources :comments
   resources :posts
   devise_for :users
   get 'home/index'
@@ -7,5 +11,5 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root :to => 'home#index'
-  resources :users
+  resources :profiles
 end

@@ -90,9 +90,12 @@
 
           </nav>
           <ul>
-            <%= link_to "user一覧" , users_path, class: "button is-warning is-light" %>
+            <%= link_to "user一覧" , profiles_path, class: "button is-warning is-light" %>
               <%= link_to "post一覧" , posts_path, class: "button is-warning is-light" %>
                 <%= link_to "post新規投稿" , new_post_path, class: "button is-warning is-light" %>
+                  <%= link_to "talk一覧" , talks_path, class: "button is-warning is-light" %>
+                    <%= link_to "talk作成" , new_talk_path, class: "button is-warning is-light" %>
+                    <%= link_to "user情報変更" , profiles_edit_path(current_user), class: "button is-warning is-light" %>
           </ul>
           <%= yield %>
 </body>
