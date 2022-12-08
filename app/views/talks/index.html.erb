@@ -1,0 +1,77 @@
+<h1>Talks#index</h1>
+<p>Find me in app/views/talks/index.html.erb</p>
+
+<section class="hero is-success">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        tweet一覧
+      </h1>
+    </div>
+  </div>
+</section>
+<% if @comment.errors.any? %>
+  <div class="notification is-danger">
+    <h2>
+      <%= pluralize(@comment.errors.count, "error" ) %> prohibited this object from being saved: not successfully
+    </h2>
+    <ul>
+      <% @comment.errors.full_messages.each do |message| %>
+        <li>
+          <%= message %>
+        </li>
+        <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+    <section class="section">
+      <div class="container">
+        <div class="columns is-multiline">
+          <% @talks.each do |talk| %>
+            <div class="column is-4">
+              <div class="card">
+                <div class="card-image">
+                  <figure class="image is-4by3">
+                    <%= link_to talks_path(talk) do %>
+                    <% end %>
+                    <%= talk.body %>
+
+                  </figure>
+                </div>
+                <div class="card-content">
+                  <div class="media">
+                    <div class="media-left">
+                    </div>
+                    <div class="media-content">
+                      <div class="title">
+                        <%=link_to talk.user.username, user_path(talk.user) %>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="content">
+                    <time>
+                      <%= talk.updated_at.strftime("%Y-%m-%d %H:%M") %>
+                    </time>更新
+                    <br>
+                    <% talk.comments.each do |comment| %>
+                      <%= comment.user.username %>
+                      <%= comment.body %>
+                      <br>
+                    <% end %>
+                    <%= form_for @comment do |f| %>
+                      <div>
+                        <%= f.label :body, "コメント" , class: "label" %>
+                          <%= f.text_field :body, class: "input" %>
+                          <%= f.hidden_field :talk_id, :value => talk.id %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% end %>
+        </div>
+      </div>
+    </section>

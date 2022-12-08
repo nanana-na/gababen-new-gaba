@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>RecipegramDemo</title>
+  <title>TesmH</title>
   <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -12,6 +12,11 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
       <%= stylesheet_link_tag "application" , media: "all" %>
         <%= javascript_include_tag "application" %>
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300&display=swap" rel="stylesheet">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+          <%= javascript_importmap_tags %>
 </head>
 
 <body>
@@ -33,7 +38,7 @@
           <nav class="navbar is-warning content-header">
             <div class="navbar-brand">
               <%= link_to root_path, class: "navbar-item" do %>
-                <h3 class="title is-4" style="font-family: cursive;">さだいの森</h3>
+                <h3 class="title is-4 title-name" style="font-family: cursive;">さだいAPP</h3>
                 <% end %>
                   <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
                     <span></span>
@@ -90,10 +95,33 @@
 
           </nav>
           <ul>
-            <%= link_to "user一覧" , users_path, class: "button is-warning is-light" %>
-              <%= link_to "post一覧" , posts_path, class: "button is-warning is-light" %>
-                <%= link_to "post新規投稿" , new_post_path, class: "button is-warning is-light" %>
+            <% if user_signed_in? %>
+              <%= link_to "user修正" , edit_user_path(current_user), class: "button is-warning is-light" %>
+                <% end %>
+                  <%= link_to "post一覧" , posts_path, class: "button is-warning is-light" %>
+                    <%= link_to "post新規投稿" , new_post_path, class: "button is-warning is-light" %>
+                      <%= link_to "talk一覧" , talks_path, class: "button is-warning is-light" %>
+                        <%= link_to "talk作成" , new_talk_path, class: "button is-warning is-light" %>
+                          <%= link_to "user修正" , new_talk_path, class: "button is-warning is-light" %>
+                            <%= link_to "note_new" , new_note_path, class: "button is-warning is-light" %>
+                              <% if user_signed_in? %>
+                                <%= link_to "book見る" , books_path, class: "button is-warning is-light" %>
+                                  <% end %>
+                                    <% if user_signed_in? %>
+                                      <%= link_to "book作る" , new_book_path, class: "button is-warning is-light" %>
+                                        <% end %>
           </ul>
+          <div class="app-profile-image-contaner">
+
+            <%= link_to (edit_user_path(current_user)) do %>
+              <% if current_user.profile_image? %>
+                <%= image_tag current_user.profile_image.url, class: "app-profile-image" %>
+                  <%end%>
+                    <% end %>
+                      <%= link_to(books_path) do %>
+                        <div class="book-icon"></div>
+                        <%end%>
+          </div>
           <%= yield %>
 </body>
 

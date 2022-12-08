@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :books
+  resources :talks
+  resources :comments
   resources :posts
   devise_for :users
   get 'home/index'
@@ -6,6 +9,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root :to => 'home#index'
+  root :to => 'book#index'
   resources :users
+  resources :notes
 end

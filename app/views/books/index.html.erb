@@ -1,0 +1,28 @@
+<section class="section">
+  <div class="book-box">
+    <% @books.each do |book| %>
+      <div class="books-index-top-page">
+        <span class="books-index-top-page-border"></span>
+        <div>
+          <% if book.book_image? %>
+            <div class="book-index-image">
+              <%= image_tag book.book_image.url, class: "profile-image" %>
+            </div>
+            <% else %>
+              <div class="user-show-no-img"></div>
+              <% end %>
+        </div>
+        <%= link_to book_path(book.id) do %>
+          <div>
+            <p style="font-family: 'Noto Serif TC', serif;">TITLE</p>
+          </div>
+          <div>
+            <%= book.title %>
+          </div>
+          <% end %>
+      </div>
+      <% end %>
+        <a href="/books/new">
+          <div class="plus-icon"></div>
+        </a>
+</section>

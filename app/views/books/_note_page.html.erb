@@ -1,0 +1,26 @@
+<div class="book-show-note-box">
+  <div class="space"></div>
+  <div class="book-show-note-2page">
+
+    <% @notes.each do |note| %>
+      <div class="book-show-note-page">
+
+        <div>
+          <h4 class="book-show-note-title">
+            <%= note.title %>
+          </h4>
+        </div>
+        <div class="book-show-note-text">
+          <p>
+            <%= simple_format(note.body) %>
+          </p>
+        </div>
+      </div>
+      <%end%>
+  </div>
+</div>
+<div class="book-paginate">
+  <div class="paginate-box">
+    <%= paginate @notes, remote: true %>
+  </div>
+</div>

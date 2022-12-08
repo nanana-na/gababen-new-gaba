@@ -1,0 +1,37 @@
+<div class="body">
+  <div class="frame">
+    <section class="hero is-success">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            ユーザー編集
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <% if @user.errors.any? %>
+      <div class="notification is-danger">
+        <h2>
+          <%= pluralize(@user.errors.count, "error" ) %> prohibited this object from being saved: not successfully
+        </h2>
+
+      </div>
+      <% end %>
+        <section class="section">
+          <div class="note-container" style="display: flex;">
+            <% @notes.each do |note| %>
+              <div style="margin-right: 30px;">
+                <%= note.id %>
+                  <div>
+                    <%= note.title %>
+                  </div>
+                  <div>
+                    <%= note.body %>
+                  </div>
+              </div>
+              <%end%>
+          </div>
+        </section>
+  </div>
+</div>

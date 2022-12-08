@@ -11,36 +11,41 @@
 <section class="section">
   <div class="container">
     <div class="columns is-multiline">
-      <% @posts.each do |post| %>
-        <div class="column is-4">
-          <div class="card">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <%= link_to post_path(post) do %>
-                  <%= image_tag post.image.url if post.image? %>
-                    <% end %>
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                </div>
-                <div class="media-content">
-                  <div class="title">
-                    <%=link_to post.user.username, user_path(post.user) %>
+      <div class="post-box">
+        <% @posts.each do |post| %>
+          <div class="column is-4" style="padding-right: 15px;">
+            <div class="card">
+              <div class="card-image">
+                <figure class="image is-4by3">
+                  <%= link_to post_path(post) do %>
+                    <%= image_tag post.image.url, class: "post-image" if post.image? %>
+                      <% end %>
+                </figure>
+              </div>
+              <div class="card-content">
+                <div class="media">
+                  <div class="media-left">
+                  </div>
+                  <div class="media-content">
+                    <div class="title">
+                      <%=link_to post.user.username, user_path(post.user) %>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div class="content">
-                <time>
-                  <%= post.updated_at.strftime("%Y-%m-%d %H:%M") %>
-                </time>更新
+                <div class="content">
+                  <time>
+                    <%= post.updated_at.strftime("%Y-%m-%d %H:%M") %>
+                  </time>更新
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <% end %>
+          <% end %>
+      </div>
+      <a href="/posts/new">
+        <div class="plus-icon"></div>
+      </a>
     </div>
   </div>
 </section>

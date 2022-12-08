@@ -12,11 +12,14 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to posts_path(@post), notice: "投稿完了"
     else
-      render :new
+      render :new, alert: "失敗"
     end
   end
-
   def show
+    @post = Post.find(params[:id])
+  end
+
+  def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
       redirect_to posts_path(@post)

@@ -1,0 +1,2 @@
+class NoteHeat < ApplicationRecord
+end

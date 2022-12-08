@@ -1,2 +1,69 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="body">
+  <div class="frame">
+    <section class="hero is-success">
+      <div class="hero-body">
+        <div class="container">
+          <h1 class="title">
+            ユーザー編集
+          </h1>
+        </div>
+      </div>
+    </section>
+
+    <% if @user.errors.any? %>
+      <div class="notification is-danger">
+        <h2>
+          <%= pluralize(@user.errors.count, "error" ) %> prohibited this object from being saved: not successfully
+        </h2>
+
+      </div>
+      <% end %>
+        <section class="section">
+          <div class="container" style="text-align: center;">
+            <div class="column is-6">
+              <div class="columns is-centered" style="text-align: center;">
+                <div class="top-page">
+                  <span class="top-page-border"></span>
+                  <div class="content-image pt-10">
+                    <% if @user.profile_image? %>
+                      <%= image_tag @user.profile_image.url, class: "profile-image" %>
+                        <% else %>
+                          <div class="user-show-no-img"></div>
+                          <% end %>
+                  </div>
+                  <div class="field input-username">
+                    <div>
+                      <p style="font-family: 'Noto Serif TC', serif;">USERNAME</p>
+                    </div>
+                    <div class="user-show-username">
+                      <p class="user-name">
+                        <%= @user.username %>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p>見る</p>
+          </div>
+          <div class="note-container" style="display: flex;">
+            <% @notes.each do |note| %>
+              <div style="margin-right: 30px;">
+                <%= note.id %>
+                  <div>
+                    <%= note.title %>
+                  </div>
+                  <div>
+                    <%= note.body %>
+                  </div>
+              </div>
+              <%end%>
+          </div>
+          <div>
+            <%= paginate @notes %>
+          </div>
+        </section>
+  </div>
+</div>

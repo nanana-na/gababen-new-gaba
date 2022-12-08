@@ -10,14 +10,56 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_02_152311) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_07_180621) do
+  create_table "books", charset: "utf8mb4", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "body"
+    t.string "book_image"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_books_on_user_id"
+  end
+
+  create_table "comments", charset: "utf8mb4", force: :cascade do |t|
+    t.string "body"
+    t.bigint "users_id", null: false
+    t.bigint "talk_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["talk_id"], name: "index_comments_on_talk_id"
+    t.index ["users_id"], name: "index_comments_on_users_id"
+  end
+
+  create_table "notes", charset: "utf8mb4", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "body", null: false
+    t.string "note_image"
+    t.bigint "user_id", null: false
+    t.bigint "book_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["book_id"], name: "index_notes_on_book_id"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
   create_table "posts", charset: "utf8mb4", force: :cascade do |t|
     t.string "title", null: false
     t.string "body"
     t.string "image"
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "talks", charset: "utf8mb4", force: :cascade do |t|
+    t.string "category"
+    t.string "body", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_talks_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
@@ -28,7 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_152311) do
     t.datetime "remember_created_at"
     t.string "username"
     t.string "profile"
-    t.string "profile_image_id"
+    t.string "profile_image"
     t.string "club"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -36,4 +78,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_02_152311) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "books", "users"
+  add_foreign_key "comments", "talks"
+  add_foreign_key "comments", "users", column: "users_id"
+  add_foreign_key "notes", "books"
+  add_foreign_key "notes", "users"
+  add_foreign_key "posts", "users"
+  add_foreign_key "talks", "users"
 end
