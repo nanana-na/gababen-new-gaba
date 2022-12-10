@@ -1,11 +1,11 @@
 class CommentsController < ApplicationController
 
   def create
-    @comment = current_user.comments.create(comment_params)
+    @comment = Comment.new(comment_params)
     if @comment.save
       redirect_to talks_path(), notice: "投稿完了"
     else
-      render :new
+      redirect_to talks_path(), notice: "投稿失敗"
     end
   end
 
@@ -14,6 +14,6 @@ class CommentsController < ApplicationController
 
   private
   def comment_params
-    params.require(:comment).permit(:body, :talk_id)
+    params.require(:comment).permit(:body, :talk_id).merge(user_id: 1)
   end
 end

@@ -1,0 +1,2 @@
+class FrindTalk < ApplicationRecord
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_07_180621) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_10_055503) do
   create_table "books", charset: "utf8mb4", force: :cascade do |t|
     t.string "title", null: false
     t.string "body"
@@ -23,12 +23,31 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_180621) do
 
   create_table "comments", charset: "utf8mb4", force: :cascade do |t|
     t.string "body"
-    t.bigint "users_id", null: false
+    t.bigint "user_id", null: false
     t.bigint "talk_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["talk_id"], name: "index_comments_on_talk_id"
-    t.index ["users_id"], name: "index_comments_on_users_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "friends", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.integer "friend_id", null: false
+    t.integer "state", default: 0, unsigned: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_friends_on_user_id"
+  end
+
+  create_table "frind_talks", charset: "utf8mb4", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "friend_id", null: false
+    t.string "message", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["friend_id"], name: "index_frind_talks_on_friend_id"
+    t.index ["user_id"], name: "index_frind_talks_on_user_id"
   end
 
   create_table "notes", charset: "utf8mb4", force: :cascade do |t|
@@ -80,7 +99,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_180621) do
 
   add_foreign_key "books", "users"
   add_foreign_key "comments", "talks"
-  add_foreign_key "comments", "users", column: "users_id"
+  add_foreign_key "comments", "users"
+  add_foreign_key "friends", "users"
+  add_foreign_key "frind_talks", "friends"
+  add_foreign_key "frind_talks", "users"
   add_foreign_key "notes", "books"
   add_foreign_key "notes", "users"
   add_foreign_key "posts", "users"
