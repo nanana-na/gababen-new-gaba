@@ -1,0 +1,4 @@
+<%= form_with url: end_user_relation_path, method: :delete, remote: true do |f| %>
+  <%= f.hidden_field :user_id, value: @user.id %>
+    <%= f.submit 'Unfollow' , class: 'btn btn-danger' %>
+      <% end %>

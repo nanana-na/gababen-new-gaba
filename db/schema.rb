@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_10_055503) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_10_063816) do
   create_table "books", charset: "utf8mb4", force: :cascade do |t|
     t.string "title", null: false
     t.string "body"
@@ -40,16 +40,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_055503) do
     t.index ["user_id"], name: "index_friends_on_user_id"
   end
 
-  create_table "frind_talks", charset: "utf8mb4", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "friend_id", null: false
-    t.string "message", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["friend_id"], name: "index_frind_talks_on_friend_id"
-    t.index ["user_id"], name: "index_frind_talks_on_user_id"
-  end
-
   create_table "notes", charset: "utf8mb4", force: :cascade do |t|
     t.string "title", null: false
     t.string "body", null: false
@@ -70,6 +60,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_055503) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
+  end
+
+  create_table "relationships", charset: "utf8mb4", force: :cascade do |t|
+    t.integer "follower_id"
+    t.integer "followed_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["followed_id"], name: "index_relationships_on_followed_id"
+    t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
+    t.index ["follower_id"], name: "index_relationships_on_follower_id"
   end
 
   create_table "talks", charset: "utf8mb4", force: :cascade do |t|
@@ -101,8 +101,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_10_055503) do
   add_foreign_key "comments", "talks"
   add_foreign_key "comments", "users"
   add_foreign_key "friends", "users"
-  add_foreign_key "frind_talks", "friends"
-  add_foreign_key "frind_talks", "users"
   add_foreign_key "notes", "books"
   add_foreign_key "notes", "users"
   add_foreign_key "posts", "users"
